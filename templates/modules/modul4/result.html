@@ -1,0 +1,134 @@
+{% extends "base.html" %} {% block title %}Modul 4 - Result{% endblock %} {%
+block content %}
+<div class="container mt-4">
+  <div class="text-center mb-4">
+    <h2>📊 Hasil Pemrosesan - {{ operation }}</h2>
+    <p class="lead text-muted">{{ description }}</p>
+    <hr />
+  </div>
+
+  <!-- Result Images -->
+  <div class="row">
+    <!-- Original Image -->
+    <div class="col-md-6 mb-4">
+      <div class="card">
+        <div class="card-header bg-secondary text-white">
+          <h5 class="mb-0">📷 Gambar Asli</h5>
+        </div>
+        <div class="card-body text-center">
+          <img
+            src="{{ original_image_path }}"
+            alt="Original Image"
+            class="img-fluid rounded shadow"
+            style="max-height: 400px; object-fit: contain"
+          />
+        </div>
+      </div>
+    </div>
+
+    <!-- Result Image -->
+    <div class="col-md-6 mb-4">
+      <div class="card">
+        <div class="card-header bg-primary text-white">
+          <h5 class="mb-0">✨ Hasil Pemrosesan</h5>
+        </div>
+        <div class="card-body text-center">
+          <img
+            src="{{ result_image_path }}"
+            alt="Result Image"
+            class="img-fluid rounded shadow"
+            style="max-height: 400px; object-fit: contain"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Additional Information -->
+  {% if faces_count is defined %}
+  <div class="row mt-4">
+    <div class="col-12">
+      <div class="alert alert-success">
+        <h6><strong>🎯 Face Detection Results:</strong></h6>
+        <p class="mb-1">
+          <strong>Jumlah wajah terdeteksi:</strong> {{ faces_count }}
+        </p>
+        {% if faces_coords %}
+        <p class="mb-0">
+          <strong>Koordinat wajah:</strong>
+        </p>
+        <ul class="mb-0">
+          {% for face in faces_coords %}
+          <li>
+            Face {{ loop.index }}: x={{ face[0] }}, y={{ face[1] }}, width={{
+            face[2] }}, height={{ face[3] }}
+          </li>
+          {% endfor %}
+        </ul>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+  {% endif %} {% if saved_faces is defined %}
+  <div class="row mt-4">
+    <div class="col-12">
+      <div class="alert alert-info">
+        <h6><strong>💾 Extracted Faces:</strong></h6>
+        <div class="row">
+          {% for face_path in saved_faces %}
+          <div class="col-md-3 mb-2">
+            <img
+              src="{{ face_path }}"
+              alt="Extracted Face"
+              class="img-fluid rounded"
+              style="max-height: 150px"
+            />
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endif %}
+
+  <!-- Action Buttons -->
+  <div class="row mt-4">
+    <div class="col-md-6 mb-2">
+      <a href="/modul4/" class="btn btn-outline-primary w-100">
+        ⬅️ Kembali ke Modul 4
+      </a>
+    </div>
+    <div class="col-md-6 mb-2">
+      <a href="/" class="btn btn-outline-secondary w-100">
+        🏠 Kembali ke Beranda
+      </a>
+    </div>
+  </div>
+
+  <!-- Download Links -->
+  <div class="row mt-3">
+    <div class="col-md-6 mb-2">
+      <a
+        href="{{ original_image_path }}"
+        download
+        class="btn btn-success w-100"
+      >
+        📥 Download Gambar Asli
+      </a>
+    </div>
+    <div class="col-md-6 mb-2">
+      <a href="{{ result_image_path }}" download class="btn btn-primary w-100">
+        📥 Download Hasil
+      </a>
+    </div>
+  </div>
+
+  <!-- Processing Details -->
+  <div class="alert alert-light mt-4">
+    <h6><strong>ℹ️ Detail Pemrosesan:</strong></h6>
+    <p class="mb-1"><strong>Operasi:</strong> {{ operation }}</p>
+    <p class="mb-1"><strong>Deskripsi:</strong> {{ description }}</p>
+    <p class="mb-0"><strong>Timestamp:</strong> {{ timestamp }}</p>
+  </div>
+</div>
+{% endblock %}

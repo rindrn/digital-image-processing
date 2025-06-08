@@ -7,7 +7,8 @@ import os
 # Import modules
 from modules.modul1 import Modul1
 from modules.modul2 import Modul2
-from modules.modul3 import Modul3  # 🔥 NEW
+from modules.modul3 import Modul3
+from modules.modul4 import Modul4  # 🔥 NEW
 
 app = FastAPI(title="PCD Praktikum 2024 - RINDI INDRIANI - 231511030")
 
@@ -16,15 +17,22 @@ app.mount("/static", StaticFiles(directory="static"), name="static")
 templates = Jinja2Templates(directory="templates")
 
 # Ensure directories exist
-if not os.path.exists("static/uploads"):
-    os.makedirs("static/uploads")
-if not os.path.exists("static/histograms"):
-    os.makedirs("static/histograms")
+directories = [
+    "static/uploads",
+    "static/histograms",
+    "static/dataset",          # 🔥 NEW
+    "static/processed_dataset" # 🔥 NEW
+]
+
+for directory in directories:
+    if not os.path.exists(directory):
+        os.makedirs(directory)
 
 # Initialize modules
 modul1 = Modul1(templates)
 modul2 = Modul2(templates)
-modul3 = Modul3(templates)  # 🔥 NEW
+modul3 = Modul3(templates)
+modul4 = Modul4(templates)  # 🔥 NEW
 
 # Main route
 @app.get("/", response_class=HTMLResponse)
@@ -95,7 +103,7 @@ async def modul2_specify(request: Request, file: UploadFile = File(...), ref_fil
 async def modul2_statistics(request: Request, file: UploadFile = File(...)):
     return await modul2.calculate_statistics(request, file)
 
-# 🔥 MODUL 3 ROUTES - NEW
+# MODUL 3 ROUTES
 @app.get("/modul3/", response_class=HTMLResponse)
 async def modul3_home(request: Request):
     return await modul3.home(request)
@@ -123,6 +131,40 @@ async def modul3_fourier(request: Request, file: UploadFile = File(...)):
 async def modul3_reduce_noise(request: Request, file: UploadFile = File(...), 
                              radius: int = Form(30)):
     return await modul3.reduce_periodic_noise(request, file, radius)
+
+# 🔥 MODUL 4 ROUTES - NEW
+@app.get("/modul4/", response_class=HTMLResponse)
+async def modul4_home(request: Request):
+    return await modul4.home(request)
+
+@app.post("/modul4/detect_faces/", response_class=HTMLResponse)
+async def modul4_detect_faces(request: Request, file: UploadFile = File(...)):
+    return await modul4.detect_faces_upload(request, file)
+
+@app.post("/modul4/add_to_dataset/", response_class=HTMLResponse)
+async def modul4_add_to_dataset(request: Request, name: str = Form(...), 
+                               file: UploadFile = File(...)):
+    return await modul4.add_to_dataset(request, name, file)
+
+@app.post("/modul4/add_noise/", response_class=HTMLResponse)
+async def modul4_add_noise(request: Request, file: UploadFile = File(...), 
+                          salt_prob: float = Form(0.02), pepper_prob: float = Form(0.02)):
+    return await modul4.add_noise(request, file, salt_prob, pepper_prob)
+
+@app.post("/modul4/remove_noise/", response_class=HTMLResponse)
+async def modul4_remove_noise(request: Request, file: UploadFile = File(...), 
+                             method: str = Form("median"), kernel_size: int = Form(3)):
+    return await modul4.remove_noise(request, file, method, kernel_size)
+
+@app.post("/modul4/sharpen/", response_class=HTMLResponse)
+async def modul4_sharpen(request: Request, file: UploadFile = File(...),
+                        method: str = Form("kernel")):
+    return await modul4.sharpen(request, file, method)
+
+@app.post("/modul4/advanced_convolution/", response_class=HTMLResponse)
+async def modul4_advanced_convolution(request: Request, file: UploadFile = File(...), 
+                                    operation: str = Form("blur")):
+    return await modul4.advanced_convolution(request, file, operation)
 
 if __name__ == "__main__":
     import uvicorn

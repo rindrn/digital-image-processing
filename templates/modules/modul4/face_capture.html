@@ -1,0 +1,85 @@
+{% extends "base.html" %} {% block title %}Modul 4 - Face Capture{% endblock %}
+{% block content %}
+<div class="container mt-4">
+  <div class="text-center mb-4">
+    <h2>📷 Face Capture - Dataset Builder</h2>
+    <p class="lead">Tambahkan wajah baru ke dataset untuk training</p>
+    <hr />
+  </div>
+
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="card">
+        <div class="card-header bg-primary text-white">
+          <h5 class="mb-0">🎯 Capture Face to Dataset</h5>
+        </div>
+        <div class="card-body">
+          <form
+            action="/modul4/add_to_dataset/"
+            enctype="multipart/form-data"
+            method="post"
+          >
+            <div class="mb-4">
+              <label class="form-label">
+                <strong>👤 Nama Orang:</strong>
+              </label>
+              <input
+                type="text"
+                name="name"
+                class="form-control"
+                placeholder="Masukkan nama lengkap..."
+                required
+              />
+              <div class="form-text">
+                Nama akan digunakan sebagai label untuk dataset
+              </div>
+            </div>
+
+            <div class="mb-4">
+              <label class="form-label">
+                <strong>📷 Pilih Gambar Wajah:</strong>
+              </label>
+              <input
+                name="file"
+                type="file"
+                accept="image/*"
+                class="form-control"
+                required
+              />
+              <div class="form-text">
+                Upload gambar yang mengandung wajah yang jelas dan terpusat
+              </div>
+            </div>
+
+            <div class="alert alert-info">
+              <h6><strong>💡 Tips untuk Hasil Terbaik:</strong></h6>
+              <ul class="mb-0">
+                <li>Pastikan wajah terlihat jelas dan tidak terhalang</li>
+                <li>Gunakan pencahayaan yang cukup</li>
+                <li>Wajah menghadap ke depan (frontal)</li>
+                <li>Hindari bayangan yang terlalu gelap</li>
+                <li>Resolusi gambar minimal 200x200 pixel</li>
+              </ul>
+            </div>
+
+            <div class="text-center">
+              <button type="submit" class="btn btn-primary btn-lg">
+                ➕ Add to Dataset
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Action Buttons -->
+  <div class="row mt-4">
+    <div class="col-md-6 offset-md-3">
+      <a href="/modul4/" class="btn btn-outline-secondary w-100">
+        ⬅️ Kembali ke Modul 4
+      </a>
+    </div>
+  </div>
+</div>
+{% endblock %}
