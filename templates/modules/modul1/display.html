@@ -1,0 +1,112 @@
+{% extends "base.html" %} {% block title %}Hasil Array RGB - Modul 1{% endblock
+%} {% block content %}
+<div class="container mt-4">
+  <div class="text-center mb-4">
+    <h2>📊 Hasil Array RGB</h2>
+    <p class="lead">Gambar yang diunggah dan array RGB-nya</p>
+    <hr />
+  </div>
+
+  <!-- Gambar yang diunggah -->
+  <div class="row justify-content-center mb-4">
+    <div class="col-md-6 text-center">
+      <div class="card">
+        <div class="card-header">
+          <h5>🖼️ Gambar Asli</h5>
+        </div>
+        <div class="card-body">
+          <img
+            src="{{ image_path }}"
+            alt="Uploaded Image"
+            class="img-fluid rounded shadow-lg"
+            style="max-height: 300px"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Array RGB -->
+  <div class="row">
+    <!-- Red Channel -->
+    <div class="col-md-4 mb-4">
+      <div class="card h-100">
+        <div class="card-header bg-danger text-white">
+          <h5 class="mb-0">🔴 Channel Red (R)</h5>
+        </div>
+        <div class="card-body">
+          <div
+            class="array-container"
+            style="max-height: 400px; overflow-y: auto"
+          >
+            <pre class="bg-light p-3 rounded shadow-sm small">
+{{ rgb_array['R'] | safe }}</pre
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Green Channel -->
+    <div class="col-md-4 mb-4">
+      <div class="card h-100">
+        <div class="card-header bg-success text-white">
+          <h5 class="mb-0">🟢 Channel Green (G)</h5>
+        </div>
+        <div class="card-body">
+          <div
+            class="array-container"
+            style="max-height: 400px; overflow-y: auto"
+          >
+            <pre class="bg-light p-3 rounded shadow-sm small">
+{{ rgb_array['G'] | safe }}</pre
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Blue Channel -->
+    <div class="col-md-4 mb-4">
+      <div class="card h-100">
+        <div class="card-header bg-primary text-white">
+          <h5 class="mb-0">🔵 Channel Blue (B)</h5>
+        </div>
+        <div class="card-body">
+          <div
+            class="array-container"
+            style="max-height: 400px; overflow-y: auto"
+          >
+            <pre class="bg-light p-3 rounded shadow-sm small">
+{{ rgb_array['B'] | safe }}</pre
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Action Buttons -->
+  <div class="text-center mt-4">
+    <a href="/modul1/" class="btn btn-secondary me-2">
+      🔄 Upload Gambar Lain
+    </a>
+    <a href="/" class="btn btn-primary"> 🏠 Kembali ke Home </a>
+  </div>
+
+  <!-- Info -->
+  <div class="alert alert-info mt-4">
+    <strong>📋 Informasi:</strong> Array di atas menunjukkan nilai intensitas
+    pixel untuk setiap channel warna. Nilai berkisar dari 0 (hitam) hingga 255
+    (putih penuh untuk channel tersebut).
+  </div>
+</div>
+
+<style>
+  .array-container pre {
+    font-family: "Courier New", monospace;
+    font-size: 0.75rem;
+    line-height: 1.2;
+  }
+</style>
+{% endblock %}

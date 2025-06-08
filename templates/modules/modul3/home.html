@@ -1,0 +1,247 @@
+{% extends "base.html" %} {% block title %}Modul 3 - Filtering & Fourier
+Transform{% endblock %} {% block content %}
+<div class="container mt-4">
+  <div class="text-center mb-4">
+    <h2>🔍 Modul 3: Filtering & Fourier Transform</h2>
+    <p class="lead">
+      Konvolusi, Padding, Filter Frekuensi, dan Transformasi Fourier
+    </p>
+    <hr />
+  </div>
+
+  <div class="row">
+    <!-- Zero Padding -->
+    <div class="col-md-6 mb-4">
+      <div class="card h-100">
+        <div class="card-header bg-primary text-white">
+          <h5 class="mb-0">📐 Zero Padding</h5>
+        </div>
+        <div class="card-body">
+          <p class="card-text">Menambahkan border hitam di sekeliling gambar</p>
+          <form
+            action="/modul3/zero_padding/"
+            enctype="multipart/form-data"
+            method="post"
+          >
+            <div class="mb-3">
+              <label class="form-label">Pilih Gambar:</label>
+              <input
+                name="file"
+                type="file"
+                accept="image/*"
+                class="form-control"
+                required
+              />
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Ukuran Padding:</label>
+              <input
+                type="number"
+                name="padding_size"
+                class="form-control"
+                value="10"
+                min="1"
+                max="100"
+              />
+            </div>
+            <button type="submit" class="btn btn-primary w-100">
+              🚀 Apply Zero Padding
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- Convolution -->
+    <div class="col-md-6 mb-4">
+      <div class="card h-100">
+        <div class="card-header bg-success text-white">
+          <h5 class="mb-0">🔄 Convolution Filter</h5>
+        </div>
+        <div class="card-body">
+          <p class="card-text">Aplikasi kernel konvolusi untuk berbagai efek</p>
+          <form
+            action="/modul3/convolution/"
+            enctype="multipart/form-data"
+            method="post"
+          >
+            <div class="mb-3">
+              <label class="form-label">Pilih Gambar:</label>
+              <input
+                name="file"
+                type="file"
+                accept="image/*"
+                class="form-control"
+                required
+              />
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Tipe Kernel:</label>
+              <select name="kernel_type" class="form-select" required>
+                <option value="average">🔹 Average (Smoothing)</option>
+                <option value="sharpen">⚡ Sharpen (Mempertajam)</option>
+                <option value="edge">🔍 Edge Detection</option>
+              </select>
+            </div>
+            <button type="submit" class="btn btn-success w-100">
+              🚀 Apply Convolution
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- Frequency Filter -->
+    <div class="col-md-6 mb-4">
+      <div class="card h-100">
+        <div class="card-header bg-warning text-dark">
+          <h5 class="mb-0">📊 Frequency Filter</h5>
+        </div>
+        <div class="card-body">
+          <p class="card-text">Filter berdasarkan domain frekuensi</p>
+          <form
+            action="/modul3/filter/"
+            enctype="multipart/form-data"
+            method="post"
+          >
+            <div class="mb-3">
+              <label class="form-label">Pilih Gambar:</label>
+              <input
+                name="file"
+                type="file"
+                accept="image/*"
+                class="form-control"
+                required
+              />
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Tipe Filter:</label>
+              <select name="filter_type" class="form-select" required>
+                <option value="low">⬇️ Low Pass (Blur)</option>
+                <option value="high">⬆️ High Pass (Sharpen)</option>
+                <option value="band">↔️ Band Pass (Selective)</option>
+              </select>
+            </div>
+            <button type="submit" class="btn btn-warning w-100">
+              🚀 Apply Filter
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- Fourier Transform -->
+    <div class="col-md-6 mb-4">
+      <div class="card h-100">
+        <div class="card-header bg-info text-white">
+          <h5 class="mb-0">🌊 Fourier Transform</h5>
+        </div>
+        <div class="card-body">
+          <p class="card-text">Transformasi ke domain frekuensi</p>
+          <form
+            action="/modul3/fourier/"
+            enctype="multipart/form-data"
+            method="post"
+          >
+            <div class="mb-3">
+              <label class="form-label">Pilih Gambar:</label>
+              <input
+                name="file"
+                type="file"
+                accept="image/*"
+                class="form-control"
+                required
+              />
+            </div>
+            <div class="mb-3">
+              <small class="text-muted">
+                Akan menampilkan magnitude spectrum dari transformasi Fourier
+              </small>
+            </div>
+            <button type="submit" class="btn btn-info w-100">
+              🚀 Apply Fourier Transform
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Noise Reduction - Full Width -->
+  <div class="row">
+    <div class="col-md-8 mx-auto mb-4">
+      <div class="card">
+        <div class="card-header bg-danger text-white">
+          <h5 class="mb-0">🛡️ Periodic Noise Reduction</h5>
+        </div>
+        <div class="card-body">
+          <p class="card-text">
+            Mengurangi periodic noise menggunakan frequency domain filtering
+          </p>
+          <form
+            action="/modul3/reduce_noise/"
+            enctype="multipart/form-data"
+            method="post"
+          >
+            <div class="row">
+              <div class="col-md-8">
+                <label class="form-label">Pilih Gambar:</label>
+                <input
+                  name="file"
+                  type="file"
+                  accept="image/*"
+                  class="form-control"
+                  required
+                />
+              </div>
+              <div class="col-md-4">
+                <label class="form-label">Radius Mask:</label>
+                <input
+                  type="number"
+                  name="radius"
+                  class="form-control"
+                  value="30"
+                  min="10"
+                  max="100"
+                />
+              </div>
+            </div>
+            <div class="text-center mt-3">
+              <button type="submit" class="btn btn-danger">
+                🚀 Reduce Noise
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Info Section -->
+  <div class="alert alert-info">
+    <h6><strong>💡 Tips Penggunaan Modul 3:</strong></h6>
+    <ul class="mb-0">
+      <li>
+        <strong>Zero Padding:</strong> Berguna untuk mempersiapkan gambar
+        sebelum konvolusi
+      </li>
+      <li>
+        <strong>Convolution:</strong> Average untuk smoothing, Sharpen untuk
+        detail, Edge untuk deteksi tepi
+      </li>
+      <li>
+        <strong>Frequency Filter:</strong> Low pass untuk noise reduction, High
+        pass untuk enhancement
+      </li>
+      <li>
+        <strong>Fourier Transform:</strong> Visualisasi spektrum frekuensi
+        gambar
+      </li>
+      <li>
+        <strong>Noise Reduction:</strong> Efektif untuk menghilangkan pola noise
+        yang berulang
+      </li>
+    </ul>
+  </div>
+</div>
+{% endblock %}

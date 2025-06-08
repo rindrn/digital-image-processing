@@ -1,0 +1,83 @@
+{% extends "base.html" %} {% block title %}Modul 1 - RGB Array Display{%
+endblock %} {% block content %}
+<div class="container mt-4">
+  <div class="text-center mb-4">
+    <h2>📊 Modul 1: RGB Array Display</h2>
+    <p class="lead">Upload citra digital untuk mendapatkan array RGB</p>
+    <hr />
+  </div>
+
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="card shadow">
+        <div class="card-header bg-primary text-white">
+          <h5 class="mb-0">🖼️ Upload Gambar</h5>
+        </div>
+        <div class="card-body">
+          <form
+            action="/modul1/upload/"
+            enctype="multipart/form-data"
+            method="post"
+          >
+            <div class="mb-3">
+              <label for="file" class="form-label">Pilih File Gambar:</label>
+              <input
+                name="file"
+                type="file"
+                accept="image/*"
+                class="form-control"
+                id="file"
+                required
+              />
+              <div class="form-text">
+                Format yang didukung: JPG, PNG, BMP, GIF (maksimal 10MB)
+              </div>
+            </div>
+            <div class="text-center">
+              <button type="submit" class="btn btn-primary btn-lg">
+                📤 Upload & Tampilkan Array RGB
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Info Section -->
+  <div class="row mt-5">
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-header">
+          <h6>ℹ️ Tentang Modul Ini</h6>
+        </div>
+        <div class="card-body">
+          <p>Modul ini akan:</p>
+          <ul>
+            <li>Mengekstrak channel Red (R)</li>
+            <li>Mengekstrak channel Green (G)</li>
+            <li>Mengekstrak channel Blue (B)</li>
+            <li>Menampilkan array nilai pixel untuk setiap channel</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-header">
+          <h6>💡 Tips Penggunaan</h6>
+        </div>
+        <div class="card-body">
+          <ul>
+            <li>
+              Gunakan gambar dengan ukuran kecil untuk array yang mudah dibaca
+            </li>
+            <li>Gambar berwarna akan menghasilkan 3 array (R, G, B)</li>
+            <li>Nilai array berkisar antara 0-255</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

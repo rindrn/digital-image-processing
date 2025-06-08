@@ -1,0 +1,158 @@
+{% extends "base.html" %} {% block title %}Home - PCD 2024{% endblock %} {%
+block content %}
+<div class="container mt-4">
+  <div class="text-center mb-5">
+    <h1 class="display-4">🎓 Praktikum Pengolahan Citra Digital 2024</h1>
+    <p class="lead">RINDI INDRIANI - 231511030</p>
+    <hr class="my-4" />
+  </div>
+
+  <div class="row">
+    <!-- Modul 1 Card -->
+    <div class="col-md-6 col-lg-4 mb-4">
+      <div class="card h-100 module-card shadow">
+        <div class="card-header bg-primary text-white">
+          <h5 class="card-title mb-0">📊 Modul 1</h5>
+        </div>
+        <div class="card-body">
+          <h6 class="card-subtitle mb-2 text-muted">RGB Array Display</h6>
+          <p class="card-text">
+            Upload gambar dan tampilkan array RGB nya dalam format yang mudah
+            dibaca.
+          </p>
+          <ul class="list-unstyled">
+            <li>✅ Upload gambar</li>
+            <li>✅ Ekstraksi channel RGB</li>
+            <li>✅ Display array RGB</li>
+          </ul>
+        </div>
+        <div class="card-footer">
+          <!-- FIX: Ganti dari /modules/modul1/ ke /modul1/ -->
+          <a href="/modul1/" class="btn btn-primary">🚀 Buka Modul 1</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modul 2 Card -->
+    <div class="col-md-6 col-lg-4 mb-4">
+      <div class="card h-100 module-card shadow">
+        <div class="card-header bg-success text-white">
+          <h5 class="card-title mb-0">📈 Modul 2</h5>
+        </div>
+        <div class="card-body">
+          <h6 class="card-subtitle mb-2 text-muted">Histogram & Operations</h6>
+          <p class="card-text">
+            Operasi aritmatika, logika, histogram, dan manipulasi citra
+            lanjutan.
+          </p>
+          <ul class="list-unstyled">
+            <li>✅ Operasi aritmatika</li>
+            <li>✅ Operasi logika</li>
+            <li>✅ Histogram analysis</li>
+            <li>✅ Equalization & Specification</li>
+          </ul>
+        </div>
+        <div class="card-footer">
+          <a href="/modul2/" class="btn btn-success">🚀 Buka Modul 2</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modul 3 Card - Tambahkan setelah Modul 2 -->
+    <div class="col-md-6 col-lg-4 mb-4">
+      <div class="card h-100 module-card shadow">
+        <div class="card-header bg-warning text-dark">
+          <h5 class="card-title mb-0">🔍 Modul 3</h5>
+        </div>
+        <div class="card-body">
+          <h6 class="card-subtitle mb-2 text-muted">
+            Filtering & Fourier Transform
+          </h6>
+          <p class="card-text">
+            Konvolusi, padding, filter frekuensi, transformasi Fourier, dan
+            noise reduction.
+          </p>
+          <ul class="list-unstyled">
+            <li>✅ Zero Padding</li>
+            <li>✅ Convolution Filters</li>
+            <li>✅ Frequency Filtering</li>
+            <li>✅ Fourier Transform</li>
+            <li>✅ Noise Reduction</li>
+          </ul>
+        </div>
+        <div class="card-footer">
+          <a href="/modul3/" class="btn btn-warning">🚀 Buka Modul 3</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modul 4-7 Placeholder -->
+    <div class="col-md-6 col-lg-4 mb-4">
+      <div class="card h-100 module-card shadow">
+        <div class="card-header bg-secondary text-white">
+          <h5 class="card-title mb-0">🔜 Modul 4-7</h5>
+        </div>
+        <div class="card-body">
+          <h6 class="card-subtitle mb-2 text-muted">Coming Soon...</h6>
+          <p class="card-text">
+            Modul selanjutnya akan segera ditambahkan setelah Anda kirimkan
+            kodenya.
+          </p>
+          <ul class="list-unstyled">
+            <li>⏳ Modul 4: Edge Detection</li>
+            <li>⏳ Modul 5: Morphology</li>
+            <li>⏳ Modul 6 & 7: Advanced</li>
+          </ul>
+        </div>
+        <div class="card-footer">
+          <button class="btn btn-secondary" disabled>🔒 Coming Soon</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Quick Info Section -->
+  <div class="row mt-5">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-header">
+          <h5>ℹ️ Cara Penggunaan</h5>
+        </div>
+        <div class="card-body">
+          <ol>
+            <li>
+              <strong>Pilih Modul:</strong> Klik pada kartu modul yang ingin
+              Anda gunakan
+            </li>
+            <li>
+              <strong>Upload Gambar:</strong> Pilih file gambar dari komputer
+              Anda
+            </li>
+            <li>
+              <strong>Pilih Operasi:</strong> Tentukan operasi yang ingin
+              diterapkan
+            </li>
+            <li>
+              <strong>Lihat Hasil:</strong> Hasil akan ditampilkan beserta
+              perbandingan
+            </li>
+          </ol>
+          <div class="alert alert-info mt-3">
+            <strong>💡 Tips:</strong> Untuk hasil terbaik, gunakan gambar dengan
+            format JPG, PNG, atau BMP dengan ukuran maksimal 10MB.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .module-card {
+    transition: transform 0.2s;
+  }
+  .module-card:hover {
+    transform: translateY(-5px);
+  }
+</style>
+{% endblock %}

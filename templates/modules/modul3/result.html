@@ -1,0 +1,57 @@
+{% extends "base.html" %} {% block title %}Hasil {{ operation }} - Modul 3{%
+endblock %} {% block content %}
+<div class="container mt-4">
+  <div class="text-center mb-4">
+    <h2>🎯 Hasil: {{ operation }}</h2>
+    <p class="lead">{{ description }}</p>
+    <hr />
+  </div>
+
+  <div class="row">
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-header bg-secondary text-white">
+          <h5 class="mb-0">📷 Gambar Asli</h5>
+        </div>
+        <div class="card-body text-center">
+          <img
+            src="{{ original_image_path }}"
+            alt="Original Image"
+            class="img-fluid rounded shadow-lg"
+            style="max-height: 400px"
+          />
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-header bg-primary text-white">
+          <h5 class="mb-0">✨ Hasil Proses</h5>
+        </div>
+        <div class="card-body text-center">
+          <img
+            src="{{ result_image_path }}"
+            alt="Processed Image"
+            class="img-fluid rounded shadow-lg"
+            style="max-height: 400px"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Action Buttons -->
+  <div class="text-center mt-4">
+    <a href="/modul3/" class="btn btn-secondary me-2">
+      🔄 Proses Gambar Lain
+    </a>
+    <a href="/" class="btn btn-primary"> 🏠 Kembali ke Home </a>
+  </div>
+
+  <!-- Operation Info -->
+  <div class="alert alert-success mt-4">
+    <strong>✅ Operasi Berhasil:</strong> {{ operation }} telah diterapkan pada
+    gambar Anda. <br /><strong>📝 Deskripsi:</strong> {{ description }}
+  </div>
+</div>
+{% endblock %}
