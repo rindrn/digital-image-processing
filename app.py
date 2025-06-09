@@ -8,7 +8,8 @@ import os
 from modules.modul1 import Modul1
 from modules.modul2 import Modul2
 from modules.modul3 import Modul3
-from modules.modul4 import Modul4  # 🔥 NEW
+from modules.modul4 import Modul4
+from modules.modul5 import Modul5  # 🔥 NEW
 
 app = FastAPI(title="PCD Praktikum 2024 - RINDI INDRIANI - 231511030")
 
@@ -20,8 +21,8 @@ templates = Jinja2Templates(directory="templates")
 directories = [
     "static/uploads",
     "static/histograms",
-    "static/dataset",          # 🔥 NEW
-    "static/processed_dataset" # 🔥 NEW
+    "static/dataset",
+    "static/processed_dataset"
 ]
 
 for directory in directories:
@@ -32,7 +33,8 @@ for directory in directories:
 modul1 = Modul1(templates)
 modul2 = Modul2(templates)
 modul3 = Modul3(templates)
-modul4 = Modul4(templates)  # 🔥 NEW
+modul4 = Modul4(templates)
+modul5 = Modul5(templates)  # 🔥 NEW
 
 # Main route
 @app.get("/", response_class=HTMLResponse)
@@ -132,7 +134,7 @@ async def modul3_reduce_noise(request: Request, file: UploadFile = File(...),
                              radius: int = Form(30)):
     return await modul3.reduce_periodic_noise(request, file, radius)
 
-# 🔥 MODUL 4 ROUTES - NEW
+# MODUL 4 ROUTES
 @app.get("/modul4/", response_class=HTMLResponse)
 async def modul4_home(request: Request):
     return await modul4.home(request)
@@ -165,6 +167,33 @@ async def modul4_sharpen(request: Request, file: UploadFile = File(...),
 async def modul4_advanced_convolution(request: Request, file: UploadFile = File(...), 
                                     operation: str = Form("blur")):
     return await modul4.advanced_convolution(request, file, operation)
+
+# 🔥 MODUL 5 ROUTES - NEW
+@app.get("/modul5/", response_class=HTMLResponse)
+async def modul5_home(request: Request):
+    return await modul5.home(request)
+
+@app.post("/modul5/freeman_chain_code/", response_class=HTMLResponse)
+async def modul5_freeman_chain_code(request: Request, file: UploadFile = File(...)):
+    return await modul5.process_freeman_chain_code(request, file)
+
+@app.post("/modul5/canny_edge_detection/", response_class=HTMLResponse)
+async def modul5_canny_edge_detection(request: Request, file: UploadFile = File(...), 
+                                     low_threshold: int = Form(50), 
+                                     high_threshold: int = Form(150)):
+    return await modul5.process_canny_edge_detection(request, file, low_threshold, high_threshold)
+
+@app.post("/modul5/integral_projection/", response_class=HTMLResponse)
+async def modul5_integral_projection(request: Request, file: UploadFile = File(...)):
+    return await modul5.process_integral_projection(request, file)
+
+@app.get("/modul5/demo/", response_class=HTMLResponse)
+async def modul5_demo(request: Request):
+    return await modul5.demo_analysis(request)
+
+@app.post("/modul5/complete_analysis/", response_class=HTMLResponse)
+async def modul5_complete_analysis(request: Request, file: UploadFile = File(...)):
+    return await modul5.complete_analysis(request, file)
 
 if __name__ == "__main__":
     import uvicorn

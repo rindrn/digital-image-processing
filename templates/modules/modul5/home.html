@@ -1,0 +1,237 @@
+{% extends "base.html" %} {% block title %}{{ title }}{% endblock %} {% block
+content %}
+<div class="container-fluid mt-4">
+  <div class="row">
+    <div class="col-12">
+      <div class="text-center mb-4">
+        <h1 class="display-5">🎯 Modul 5: Advanced Analysis</h1>
+        <p class="lead">
+          Freeman Chain Code, Canny Edge Detection & Integral Projection
+        </p>
+        <hr class="my-4" />
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <!-- Freeman Chain Code Card -->
+    <div class="col-md-6 col-lg-3 mb-4">
+      <div class="card h-100 shadow">
+        <div class="card-header bg-primary text-white">
+          <h5 class="card-title mb-0">🔗 Freeman Chain Code</h5>
+        </div>
+        <div class="card-body">
+          <p class="card-text">
+            Analisis kontur dengan kode rantai Freeman 8-arah untuk representasi
+            bentuk objek.
+          </p>
+          <form
+            action="/modul5/freeman_chain_code/"
+            method="post"
+            enctype="multipart/form-data"
+          >
+            <div class="mb-3">
+              <label for="freeman_file" class="form-label">Pilih Gambar:</label>
+              <input
+                type="file"
+                class="form-control"
+                id="freeman_file"
+                name="file"
+                accept="image/*"
+                required
+              />
+            </div>
+            <button type="submit" class="btn btn-primary w-100">
+              🚀 Analisis Chain Code
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- Canny Edge Detection Card -->
+    <div class="col-md-6 col-lg-3 mb-4">
+      <div class="card h-100 shadow">
+        <div class="card-header bg-success text-white">
+          <h5 class="card-title mb-0">🔍 Canny Edge Detection</h5>
+        </div>
+        <div class="card-body">
+          <p class="card-text">
+            Deteksi tepi menggunakan algoritma Canny dengan threshold yang dapat
+            disesuaikan.
+          </p>
+          <form
+            action="/modul5/canny_edge_detection/"
+            method="post"
+            enctype="multipart/form-data"
+          >
+            <div class="mb-3">
+              <label for="canny_file" class="form-label">Pilih Gambar:</label>
+              <input
+                type="file"
+                class="form-control"
+                id="canny_file"
+                name="file"
+                accept="image/*"
+                required
+              />
+            </div>
+            <div class="row">
+              <div class="col-6">
+                <label for="low_threshold" class="form-label"
+                  >Low Threshold:</label
+                >
+                <input
+                  type="number"
+                  class="form-control"
+                  id="low_threshold"
+                  name="low_threshold"
+                  value="50"
+                  min="1"
+                  max="255"
+                />
+              </div>
+              <div class="col-6">
+                <label for="high_threshold" class="form-label"
+                  >High Threshold:</label
+                >
+                <input
+                  type="number"
+                  class="form-control"
+                  id="high_threshold"
+                  name="high_threshold"
+                  value="150"
+                  min="1"
+                  max="255"
+                />
+              </div>
+            </div>
+            <button type="submit" class="btn btn-success w-100 mt-3">
+              🚀 Deteksi Tepi
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- Integral Projection Card -->
+    <div class="col-md-6 col-lg-3 mb-4">
+      <div class="card h-100 shadow">
+        <div class="card-header bg-warning text-dark">
+          <h5 class="card-title mb-0">📊 Integral Projection</h5>
+        </div>
+        <div class="card-body">
+          <p class="card-text">
+            Analisis proyeksi integral horizontal dan vertikal untuk segmentasi
+            teks dan objek.
+          </p>
+          <form
+            action="/modul5/integral_projection/"
+            method="post"
+            enctype="multipart/form-data"
+          >
+            <div class="mb-3">
+              <label for="projection_file" class="form-label"
+                >Pilih Gambar:</label
+              >
+              <input
+                type="file"
+                class="form-control"
+                id="projection_file"
+                name="file"
+                accept="image/*"
+                required
+              />
+            </div>
+            <button type="submit" class="btn btn-warning w-100">
+              🚀 Analisis Proyeksi
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- Complete Analysis Card -->
+    <div class="col-md-6 col-lg-3 mb-4">
+      <div class="card h-100 shadow">
+        <div class="card-header bg-danger text-white">
+          <h5 class="card-title mb-0">🎯 Complete Analysis</h5>
+        </div>
+        <div class="card-body">
+          <p class="card-text">
+            Analisis lengkap yang menggabungkan semua teknik dalam satu
+            visualisasi komprehensif.
+          </p>
+          <form
+            action="/modul5/complete_analysis/"
+            method="post"
+            enctype="multipart/form-data"
+          >
+            <div class="mb-3">
+              <label for="complete_file" class="form-label"
+                >Pilih Gambar:</label
+              >
+              <input
+                type="file"
+                class="form-control"
+                id="complete_file"
+                name="file"
+                accept="image/*"
+                required
+              />
+            </div>
+            <button type="submit" class="btn btn-danger w-100">
+              🚀 Analisis Lengkap
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Demo Section -->
+  <div class="row mt-4">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-header bg-info text-white">
+          <h5 class="card-title mb-0">🎮 Demo Mode</h5>
+        </div>
+        <div class="card-body">
+          <p class="card-text">
+            Lihat contoh analisis menggunakan dataset bawaan (hurufA.png,
+            cameraman.png, tier1.png)
+          </p>
+          <a href="/modul5/demo/" class="btn btn-info">🎮 Jalankan Demo</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Info Section -->
+  <div class="row mt-4">
+    <div class="col-12">
+      <div class="alert alert-info">
+        <h5>📋 Informasi Teknik:</h5>
+        <ul class="mb-0">
+          <li>
+            <strong>Freeman Chain Code:</strong> Representasi kontur menggunakan
+            8 arah (0-7) untuk analisis bentuk
+          </li>
+          <li>
+            <strong>Canny Edge Detection:</strong> Algoritma deteksi tepi dengan
+            double threshold untuk edge linking
+          </li>
+          <li>
+            <strong>Integral Projection:</strong> Proyeksi horizontal & vertikal
+            untuk segmentasi dan analisis layout
+          </li>
+          <li>
+            <strong>Complete Analysis:</strong> Kombinasi semua teknik untuk
+            analisis menyeluruh
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

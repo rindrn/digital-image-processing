@@ -1,0 +1,274 @@
+{% extends "base.html" %} {% block title %}{{ title }}{% endblock %} {% block
+content %}
+<div class="container-fluid mt-4">
+  <div class="row">
+    <div class="col-12">
+      <div class="text-center mb-4">
+        <h1 class="display-5">{{ title }}</h1>
+        <hr class="my-4" />
+      </div>
+    </div>
+  </div>
+
+  {% if success %}
+  <div class="row">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-header bg-success text-white">
+          <h5 class="card-title mb-0">
+            ✅ {{ analysis_type }} - Hasil Analisis
+          </h5>
+        </div>
+        <div class="card-body text-center">
+          {% if plot_url %}
+          <img
+            src="{{ plot_url }}"
+            class="img-fluid"
+            alt="Analysis Result"
+            style="max-width: 100%; height: auto"
+          />
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Analysis Details -->
+  <div class="row mt-4">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-header bg-info text-white">
+          <h5 class="card-title mb-0">📊 Detail Analisis</h5>
+        </div>
+        <div class="card-body">
+          <div class="row">
+            {% if chain_code_length is defined %}
+            <div class="col-md-3">
+              <div class="text-center">
+                <h3 class="text-primary">{{ chain_code_length }}</h3>
+                <p class="text-muted">Chain Code Length</p>
+              </div>
+            </div>
+            {% endif %} {% if contours_found is defined %}
+            <div class="col-md-3">
+              <div class="text-center">
+                <h3 class="text-success">{{ contours_found }}</h3>
+                <p class="text-muted">Contours Found</p>
+              </div>
+            </div>
+            {% endif %} {% if edge_pixels is defined %}
+            <div class="col-md-3">
+              <div class="text-center">
+                <h3 class="text-warning">{{ edge_pixels }}</h3>
+                <p class="text-muted">Edge Pixels</p>
+              </div>
+            </div>
+            {% endif %} {% if low_threshold is defined and high_threshold is
+            defined %}
+            <div class="col-md-3">
+              <div class="text-center">
+                <h3 class="text-info">
+                  {{ low_threshold }}-{{ high_threshold }}
+                </h3>
+                <p class="text-muted">Canny Thresholds</p>
+              </div>
+            </div>
+            {% endif %} {% if image_size is defined %}
+            <div class="col-md-3">
+              <div class="text-center">
+                <h3 class="text-secondary">{{ image_size }}</h3>
+                <p class="text-muted">Image Size</p>
+              </div>
+            </div>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Technical Information -->
+  <div class="row mt-4">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-header bg-dark text-white">
+          <h5 class="card-title mb-0">🔬 Informasi Teknis</h5>
+        </div>
+        <div class="card-body">
+          {% if analysis_type == "Freeman Chain Code" %}
+          <div class="alert alert-primary">
+            <h6><strong>Freeman Chain Code Analysis:</strong></h6>
+            <ul class="mb-0">
+              <li>
+                Menggunakan representasi 8-arah (0-7) untuk menggambarkan kontur
+              </li>
+              <li>Gambar dikonversi ke binary menggunakan threshold 127</li>
+              <li>Kontur terbesar dipilih untuk analisis chain code</li>
+              <li>
+                Hasil chain code menunjukkan urutan arah pergerakan di sepanjang
+                kontur
+              </li>
+            </ul>
+          </div>
+          {% elif analysis_type == "Canny Edge Detection" %}
+          <div class="alert alert-success">
+            <h6><strong>Canny Edge Detection Analysis:</strong></h6>
+            <ul class="mb-0">
+              <li>
+                Gaussian blur dengan kernel 5x5 diterapkan untuk mengurangi
+                noise
+              </li>
+              <li>
+                Double threshold: Low={{ low_threshold }}, High={{
+                high_threshold }}
+              </li>
+              <li>
+                Edge linking digunakan untuk menghubungkan tepi yang terputus
+              </li>
+              <li>Hasil menunjukkan tepi yang kuat dan konsisten</li>
+            </ul>
+          </div>
+          {% elif analysis_type == "Integral Projection" %}
+          <div class="alert alert-warning">
+            <h6><strong>Integral Projection Analysis:</strong></h6>
+            <ul class="mb-0">
+              <li>
+                Binarisasi menggunakan Otsu's thresholding untuk hasil optimal
+              </li>
+              <li>Proyeksi horizontal: penjumlahan pixel di setiap kolom</li>
+              <li>Proyeksi vertikal: penjumlahan pixel di setiap baris</li>
+              <li>Berguna untuk segmentasi teks dan analisis layout dokumen</li>
+            </ul>
+          </div>
+          {% elif analysis_type == "Complete Analysis" %}
+          <div class="alert alert-danger">
+            <h6><strong>Complete Analysis:</strong></h6>
+            <ul class="mb-0">
+              <li>
+                Kombinasi Freeman Chain Code, Canny Edge Detection, dan Integral
+                Projection
+              </li>
+              <li>Memberikan analisis menyeluruh karakteristik gambar</li>
+              <li>Visualisasi komprehensif dengan 9 subplot berbeda</li>
+              <li>Ringkasan statistik dari semua teknik analisis</li>
+            </ul>
+          </div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {% else %}
+  <!-- Error State -->
+  <div class="row">
+    <div class="col-12">
+      <div class="alert alert-danger" role="alert">
+        <h4 class="alert-heading">❌ Error!</h4>
+        <p>Terjadi kesalahan saat memproses gambar:</p>
+        <hr />
+        <p class="mb-0"><strong>{{ error }}</strong></p>
+      </div>
+    </div>
+  </div>
+  {% endif %}
+
+  <!-- Navigation and Actions -->
+  <div class="row mt-4">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-body text-center">
+          <h5 class="card-title">🚀 Lanjutkan Analisis</h5>
+          <p class="card-text">
+            Pilih analisis lain atau kembali ke menu utama
+          </p>
+          <div class="btn-group" role="group">
+            <a href="/modul5/" class="btn btn-primary">🔄 Analisis Lain</a>
+            <a href="/modul5/demo/" class="btn btn-info">🎮 Demo Mode</a>
+            <a href="/" class="btn btn-secondary">🏠 Menu Utama</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tips Section -->
+  <div class="row mt-4">
+    <div class="col-12">
+      <div class="alert alert-info">
+        <h5>💡 Tips untuk Hasil Optimal:</h5>
+        <div class="row">
+          <div class="col-md-4">
+            <h6>Freeman Chain Code:</h6>
+            <ul>
+              <li>Gunakan gambar dengan objek yang jelas</li>
+              <li>Background kontras dengan objek</li>
+              <li>Hindari gambar dengan noise berlebihan</li>
+            </ul>
+          </div>
+          <div class="col-md-4">
+            <h6>Canny Edge Detection:</h6>
+            <ul>
+              <li>Sesuaikan threshold sesuai karakteristik gambar</li>
+              <li>Low threshold: 50-100 untuk gambar dengan noise rendah</li>
+              <li>High threshold: 150-200 untuk tepi yang kuat</li>
+            </ul>
+          </div>
+          <div class="col-md-4">
+            <h6>Integral Projection:</h6>
+            <ul>
+              <li>Ideal untuk analisis teks dan dokumen</li>
+              <li>Gunakan gambar dengan orientasi yang benar</li>
+              <li>Background putih, teks hitam untuk hasil terbaik</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %} {% block scripts %}
+<script>
+  // Auto-scroll to result when page loads
+  document.addEventListener("DOMContentLoaded", function () {
+    const resultCard = document.querySelector(".card");
+    if (resultCard) {
+      resultCard.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  });
+
+  // Add click-to-zoom functionality for the result image
+  document.addEventListener("DOMContentLoaded", function () {
+    const resultImage = document.querySelector(".card-body img");
+    if (resultImage) {
+      resultImage.style.cursor = "pointer";
+      resultImage.addEventListener("click", function () {
+        // Create modal for zoomed image
+        const modal = document.createElement("div");
+        modal.className = "modal fade";
+        modal.innerHTML = `
+                    <div class="modal-dialog modal-xl">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">🔍 Hasil Analisis - Zoom View</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                            </div>
+                            <div class="modal-body text-center">
+                                <img src="${this.src}" class="img-fluid" alt="Zoomed Result">
+                            </div>
+                        </div>
+                    </div>
+                `;
+        document.body.appendChild(modal);
+        const modalInstance = new bootstrap.Modal(modal);
+        modalInstance.show();
+
+        // Remove modal from DOM when hidden
+        modal.addEventListener("hidden.bs.modal", function () {
+          document.body.removeChild(modal);
+        });
+      });
+    }
+  });
+</script>
+{% endblock %}
