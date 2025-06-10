@@ -1,0 +1,312 @@
+{% extends "base.html" %} {% block title %}{{ title }}{% endblock %} {% block
+content %}
+<div class="container-fluid mt-4">
+  <div class="row">
+    <div class="col-12">
+      <div class="text-center mb-4">
+        <h1 class="display-5">{{ title }}</h1>
+        <hr class="my-4" />
+      </div>
+    </div>
+  </div>
+
+  {% if success %}
+  <!-- Success State -->
+  <div class="row">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-header bg-success text-white">
+          <h5 class="card-title mb-0">
+            ✅ {{ analysis_type }} - Hasil Analisis
+          </h5>
+        </div>
+        <div class="card-body text-center">
+          {% if plot_url %}
+          <img
+            src="{{ plot_url }}"
+            class="img-fluid"
+            alt="Color Space Analysis Result"
+            style="max-width: 100%; height: auto"
+          />
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Color Space Information Table -->
+  {% if color_spaces %}
+  <div class="row mt-4">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-header bg-info text-white">
+          <h5 class="card-title mb-0">📊 Informasi Model Warna</h5>
+        </div>
+        <div class="card-body">
+          <div class="table-responsive">
+            <table class="table table-striped table-hover">
+              <thead class="table-dark">
+                <tr>
+                  <th>Model Warna</th>
+                  <th>Deskripsi</th>
+                  <th>Komponen</th>
+                  <th>Rentang Nilai</th>
+                  <th>Aplikasi</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for cs in color_spaces %}
+                <tr>
+                  <td>
+                    <span class="badge bg-primary">{{ cs.name }}</span>
+                  </td>
+                  <td>{{ cs.description }}</td>
+                  <td>
+                    <small class="text-muted">{{ cs.components }}</small>
+                  </td>
+                  <td>
+                    <small class="text-muted">{{ cs.range }}</small>
+                  </td>
+                  <td>
+                    {% if cs.name == 'RGB' %}
+                    <span class="badge bg-danger">Display</span>
+                    {% elif cs.name == 'LAB' or cs.name == 'CIE Luv' %}
+                    <span class="badge bg-warning text-dark">Perceptual</span>
+                    {% elif cs.name == 'YCrCb' or cs.name == 'YUV' or cs.name == 'YIQ' %}
+                    <span class="badge bg-success">Broadcast</span>
+                    {% elif cs.name == 'HSV' or cs.name == 'HSI' %}
+                    <span class="badge bg-info">Graphics</span>
+                    {% else %}
+                    <span class="badge bg-secondary">Standard</span>
+                    {% endif %}
+                  </td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endif %}
+
+  <!-- Specific Color Space Analysis -->
+  {% if color_space %}
+  <div class="row mt-4">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-header bg-primary text-white">
+          <h5 class="card-title mb-0">🔍 Analisis {{ color_space }}</h5>
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-4">
+              <h6>📋 Karakteristik {{ color_space }}</h6>
+              {% if color_space == 'XYZ' %}
+              <ul class="list-unstyled">
+                <li>🔸 <strong>Standar CIE</strong></li>
+                <li>🔸 Basis untuk ruang warna lain</li>
+                <li>🔸 Device independent</li>
+                <li>🔸 Y = luminance sesuai mata</li>
+              </ul>
+              {% elif color_space == 'LAB' %}
+              <ul class="list-unstyled">
+                <li>🔸 <strong>Perceptually uniform</strong></li>
+                <li>🔸 L: Lightness (0-100)</li>
+                <li>🔸 a: Green-Red axis</li>
+                <li>🔸 b: Blue-Yellow axis</li>
+              </ul>
+              {% elif color_space == 'YCRCB' %}
+              <ul class="list-unstyled">
+                <li>🔸 <strong>JPEG compression</strong></li>
+                <li>🔸 Y: Luminance component</li>
+                <li>🔸 Cr: Red difference</li>
+                <li>🔸 Cb: Blue difference</li>
+              </ul>
+              {% elif color_space == 'YUV' %}
+              <ul class="list-unstyled">
+                <li>🔸 <strong>PAL TV system</strong></li>
+                <li>🔸 Y: Luminance</li>
+                <li>🔸 U: Blue projection</li>
+                <li>🔸 V: Red projection</li>
+              </ul>
+              {% elif color_space == 'YIQ' %}
+              <ul class="list-unstyled">
+                <li>🔸 <strong>NTSC TV system</strong></li>
+                <li>🔸 Y: Luminance</li>
+                <li>🔸 I: In-phase (orange-blue)</li>
+                <li>🔸 Q: Quadrature (purple-green)</li>
+              </ul>
+              {% elif color_space == 'HSI' %}
+              <ul class="list-unstyled">
+                <li>🔸 <strong>Human intuitive</strong></li>
+                <li>🔸 H: Hue (color type)</li>
+                <li>🔸 S: Saturation (purity)</li>
+                <li>🔸 I: Intensity (brightness)</li>
+              </ul>
+              {% elif color_space == 'HSV' %}
+              <ul class="list-unstyled">
+                <li>🔸 <strong>Computer graphics</strong></li>
+                <li>🔸 H: Hue (0-360°)</li>
+                <li>🔸 S: Saturation (0-100%)</li>
+                <li>🔸 V: Value (brightness)</li>
+              </ul>
+              {% elif color_space == 'LUV' %}
+              <ul class="list-unstyled">
+                <li>🔸 <strong>Additive colors</strong></li>
+                <li>🔸 Alternative to LAB</li>
+                <li>🔸 Better for RGB displays</li>
+                <li>🔸 Linear light mixing</li>
+              </ul>
+              {% endif %}
+            </div>
+            <div class="col-md-4">
+              <h6>🎯 Keunggulan</h6>
+              {% if color_space == 'XYZ' %}
+              <ul class="list-unstyled text-success">
+                <li>✅ Standar internasional</li>
+                <li>✅ Basis semua konversi</li>
+                <li>✅ Akurat secara ilmiah</li>
+              </ul>
+              {% elif color_space == 'LAB' %}
+              <ul class="list-unstyled text-success">
+                <li>✅ Uniform perceptually</li>
+                <li>✅ Separasi luminance-chrominance</li>
+                <li>✅ Ideal untuk color matching</li>
+              </ul>
+              {% elif color_space == 'YCRCB' %}
+              <ul class="list-unstyled text-success">
+                <li>✅ Efisien untuk kompresi</li>
+                <li>✅ Pemisahan luma-chroma</li>
+                <li>✅ Standar industri</li>
+              </ul>
+              {% elif color_space == 'HSV' or color_space == 'HSI' %}
+              <ul class="list-unstyled text-success">
+                <li>✅ Intuitif untuk manusia</li>
+                <li>✅ Color selection UI</li>
+                <li>✅ Segmentasi berdasar warna</li>
+              </ul>
+              {% else %}
+              <ul class="list-unstyled text-success">
+                <li>✅ Sesuai untuk aplikasi spesifik</li>
+                <li>✅ Optimized untuk domain tertentu</li>
+                <li>✅ Standar industri</li>
+              </ul>
+              {% endif %}
+            </div>
+            <div class="col-md-4">
+              <h6>⚠️ Keterbatasan</h6>
+              {% if color_space == 'XYZ' %}
+              <ul class="list-unstyled text-warning">
+                <li>⚠️ Tidak intuitif</li>
+                <li>⚠️ Range nilai bervariasi</li>
+                <li>⚠️ Kompleks untuk visualisasi</li>
+              </ul>
+              {% elif color_space == 'LAB' %}
+              <ul class="list-unstyled text-warning">
+                <li>⚠️ Tidak linear untuk RGB</li>
+                <li>⚠️ Kompleks komputasi</li>
+                <li>⚠️ Range a,b tidak tetap</li>
+              </ul>
+              {% elif color_space == 'YCRCB' %}
+              <ul class="list-unstyled text-warning">
+                <li>⚠️ Tidak perceptually uniform</li>
+                <li>⚠️ Terbatas untuk display</li>
+                <li>⚠️ Color bleeding artifacts</li>
+              </ul>
+              {% elif color_space == 'HSV' or color_space == 'HSI' %}
+              <ul class="list-unstyled text-warning">
+                <li>⚠️ Singularity di gray levels</li>
+                <li>⚠️ Tidak linear</li>
+                <li>⚠️ Hue undefined untuk achromatic</li>
+              </ul>
+              {% else %}
+              <ul class="list-unstyled text-warning">
+                <li>⚠️ Aplikasi terbatas</li>
+                <li>⚠️ Konversi loss</li>
+                <li>⚠️ Device dependent</li>
+              </ul>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endif %}
+
+  <!-- Technical Implementation Notes -->
+  <div class="row mt-4">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-header bg-dark text-white">
+          <h5 class="card-title mb-0">🔧 Catatan Implementasi</h5>
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-6">
+              <h6>📐 Manual Implementation</h6>
+              <p>
+                <strong>YIQ</strong> dan <strong>HSI</strong> diimplementasikan secara manual:
+              </p>
+              <ul>
+                <li><strong>YIQ:</strong> Menggunakan matriks transformasi NTSC</li>
+                <li><strong>HSI:</strong> Implementasi rumus trigonometri untuk Hue</li>
+                <li><strong>Normalisasi:</strong> Handling division by zero dan NaN values</li>
+              </ul>
+            </div>
+            <div class="col-md-6">
+              <h6>🎨 Visualization</h6>
+              <p>
+                Strategi visualisasi untuk setiap model warna:
+              </p>
+              <ul>
+                <li><strong>Normalization:</strong> Min-max scaling untuk display</li>
+                <li><strong>Colormaps:</strong> Sesuai karakteristik komponen</li>
+                <li><strong>Components:</strong> Analisis per-channel dengan histogram</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {% else %}
+  <!-- Error State -->
+  <div class="row">
+    <div class="col-12">
+      <div class="alert alert-danger">
+        <h4 class="alert-heading">❌ Error</h4>
+        <p>{{ error }}</p>
+        <hr />
+        <p class="mb-0">
+          Silakan coba lagi atau
+          <a href="/modul7/" class="alert-link">kembali ke Modul 7</a>.
+        </p>
+      </div>
+    </div>
+  </div>
+  {% endif %}
+
+  <!-- Action Buttons -->
+  <div class="row mt-4">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-body text-center">
+          <h5 class="card-title">🚀 Selanjutnya</h5>
+          <p class="card-text">
+            Jelajahi model warna lainnya atau coba dengan gambar berbeda
+          </p>
+          <div class="btn-group" role="group">
+            <a href="/modul7/" class="btn btn-primary">🔄 Analisis Baru</a>
+            <a href="/modul7/demo/" class="btn btn-warning">🎯 Demo</a>
+            <a href="/" class="btn btn-secondary">🏠 Menu Utama</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

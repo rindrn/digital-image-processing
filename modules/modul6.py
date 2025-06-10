@@ -534,7 +534,7 @@ class Modul6:
     async def demo_compression(self, request):
         """Demo compression analysis dengan dataset bawaan"""
         try:
-            demo_images = ["cameraman.png", "hurufA.png", "tier1.png"]
+            demo_images = ["cameraman.png", "lena.png", "peppers.png"]
             demo_results = []
             
             for img_name in demo_images:

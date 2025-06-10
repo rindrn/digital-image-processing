@@ -1,0 +1,213 @@
+{% extends "base.html" %} {% block title %}{{ title }}{% endblock %} {% block
+content %}
+<div class="container-fluid mt-4">
+  <div class="row">
+    <div class="col-12">
+      <div class="text-center mb-4">
+        <h1 class="display-5">🎨 Modul 7: Color Space Conversion</h1>
+        <p class="lead">
+          Analisis dan konversi berbagai model warna dalam pengolahan citra digital
+        </p>
+        <hr class="my-4" />
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <!-- Complete Color Space Analysis -->
+    <div class="col-md-6 col-lg-4 mb-4">
+      <div class="card h-100 shadow">
+        <div class="card-header bg-primary text-white">
+          <h5 class="card-title mb-0">🌈 Complete Analysis</h5>
+        </div>
+        <div class="card-body">
+          <p class="card-text">
+            Konversi gambar ke semua model warna yang didukung: RGB, XYZ, LAB, YCrCb, YUV, YIQ, HSI, HSV, dan CIE Luv.
+          </p>
+          <ul class="list-unstyled">
+            <li>✅ 9 Model Warna</li>
+            <li>✅ Analisis Komponen</li>
+            <li>✅ Perbandingan Visual</li>
+            <li>✅ Manual Implementation</li>
+          </ul>
+          <form
+            action="/modul7/convert_all/"
+            method="post"
+            enctype="multipart/form-data"
+          >
+            <div class="mb-3">
+              <label for="complete_file" class="form-label">Pilih Gambar:</label>
+              <input
+                type="file"
+                class="form-control"
+                id="complete_file"
+                name="file"
+                accept="image/*"
+                required
+              />
+            </div>
+            <button type="submit" class="btn btn-primary w-100">
+              🌈 Analisis Lengkap
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- Specific Color Space Analysis -->
+    <div class="col-md-6 col-lg-4 mb-4">
+      <div class="card h-100 shadow">
+        <div class="card-header bg-info text-white">
+          <h5 class="card-title mb-0">🔍 Specific Analysis</h5>
+        </div>
+        <div class="card-body">
+          <p class="card-text">
+            Analisis detail untuk model warna tertentu dengan visualisasi komponen dan histogram.
+          </p>
+          <form
+            action="/modul7/analyze_specific/"
+            method="post"
+            enctype="multipart/form-data"
+          >
+            <div class="mb-3">
+              <label for="specific_file" class="form-label">Pilih Gambar:</label>
+              <input
+                type="file"
+                class="form-control"
+                id="specific_file"
+                name="file"
+                accept="image/*"
+                required
+              />
+            </div>
+            <div class="mb-3">
+              <label for="color_space" class="form-label">Model Warna:</label>
+              <select
+                class="form-select"
+                id="color_space"
+                name="color_space"
+                required
+              >
+                <option value="">-- Pilih Model Warna --</option>
+                <option value="xyz">XYZ (CIE Standard)</option>
+                <option value="lab">CIE LAB (Perceptually Uniform)</option>
+                <option value="ycrcb">YCrCb (JPEG Compression)</option>
+                <option value="yuv">YUV (PAL TV System)</option>
+                <option value="yiq">YIQ (NTSC TV System) - Manual</option>
+                <option value="hsi">HSI (Human Intuitive) - Manual</option>
+                <option value="hsv">HSV (Computer Graphics)</option>
+                <option value="luv">CIE Luv (Additive Colors)</option>
+              </select>
+            </div>
+            <button type="submit" class="btn btn-info w-100">
+              🔍 Analisis Spesifik
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- Demo Mode -->
+    <div class="col-md-6 col-lg-4 mb-4">
+      <div class="card h-100 shadow">
+        <div class="card-header bg-warning text-dark">
+          <h5 class="card-title mb-0">🎯 Demo Mode</h5>
+        </div>
+        <div class="card-body">
+          <p class="card-text">
+            Lihat demonstrasi konversi model warna menggunakan dataset bawaan (Lena, Peppers).
+          </p>
+          <ul class="list-unstyled">
+            <li>🖼️ Dataset Standar</li>
+            <li>📊 Statistik Konversi</li>
+            <li>⚡ Cepat & Mudah</li>
+            <li>📝 Contoh Implementasi</li>
+          </ul>
+          <a href="/modul7/demo/" class="btn btn-warning w-100"
+            >🎯 Jalankan Demo</a
+          >
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Color Space Information -->
+  <div class="row mt-4">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-header bg-secondary text-white">
+          <h5 class="card-title mb-0">📚 Informasi Model Warna</h5>
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-4">
+              <h6 class="text-primary">🔴 Additive Models</h6>
+              <ul class="list-unstyled">
+                <li><strong>RGB:</strong> Red, Green, Blue - Display devices</li>
+                <li><strong>XYZ:</strong> CIE standard tristimulus values</li>
+                <li><strong>HSV:</strong> Hue, Saturation, Value - Graphics</li>
+                <li><strong>HSI:</strong> Hue, Saturation, Intensity - Human intuitive</li>
+              </ul>
+            </div>
+            <div class="col-md-4">
+              <h6 class="text-success">📺 Broadcast Models</h6>
+              <ul class="list-unstyled">
+                <li><strong>YUV:</strong> PAL/SECAM TV systems</li>
+                <li><strong>YIQ:</strong> NTSC TV system (America)</li>
+                <li><strong>YCrCb:</strong> Digital video & JPEG compression</li>
+              </ul>
+            </div>
+            <div class="col-md-4">
+              <h6 class="text-warning">👁️ Perceptual Models</h6>
+              <ul class="list-unstyled">
+                <li><strong>CIE LAB:</strong> Perceptually uniform color space</li>
+                <li><strong>CIE Luv:</strong> Alternative uniform space</li>
+                <li><strong>Manual Implementation:</strong> YIQ & HSI dari scratch</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Technical Notes -->
+  <div class="row mt-4">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-header bg-dark text-white">
+          <h5 class="card-title mb-0">⚙️ Catatan Teknis</h5>
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-6">
+              <h6>🔧 Manual Implementation</h6>
+              <p>
+                Modul ini mengimplementasikan konversi <strong>YIQ</strong> dan <strong>HSI</strong> 
+                secara manual menggunakan matriks transformasi dan rumus matematis untuk pemahaman 
+                yang lebih mendalam.
+              </p>
+            </div>
+            <div class="col-md-6">
+              <h6>📊 Component Analysis</h6>
+              <p>
+                Setiap analisis menampilkan komponen individual dari model warna 
+                (contoh: R,G,B untuk RGB atau H,S,V untuk HSV) dengan colormap yang sesuai.
+              </p>
+            </div>
+          </div>
+          <div class="alert alert-info mt-3">
+            <strong>💡 Tips:</strong> 
+            <ul class="mb-0">
+              <li>Gunakan gambar berwarna untuk hasil analisis yang optimal</li>
+              <li>Model LAB dan Luv cocok untuk analisis perbedaan warna</li>
+              <li>YCrCb digunakan dalam kompresi JPEG dan video digital</li>
+              <li>HSI/HSV lebih intuitif untuk seleksi dan segmentasi warna</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

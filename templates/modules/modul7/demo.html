@@ -1,0 +1,212 @@
+{% extends "base.html" %}
+{% block title %}Demo Modul 7 - Color Space Conversion{% endblock %}
+{% block content %}
+<div class="container mt-4">
+  <div class="row">
+    <div class="col-12">
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="/">Home</a></li>
+          <li class="breadcrumb-item"><a href="/modul7/">Modul 7</a></li>
+          <li class="breadcrumb-item active">Demo Mode</li>
+        </ol>
+      </nav>
+    </div>
+  </div>
+
+  <div class="row mb-4">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-header bg-info text-white">
+          <h4 class="card-title mb-0">🎨 Demo Mode - Color Space Conversion</h4>
+        </div>
+        <div class="card-body">
+          <p class="lead">
+            Jelajahi konversi model warna menggunakan dataset bawaan. Pilih gambar dan analisis yang ingin Anda lihat.
+          </p>
+          
+          <!-- Demo Selection Form -->
+          <form method="POST" action="/modul7/demo" class="mb-4">
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <label for="demo_image" class="form-label">📸 Pilih Gambar Demo:</label>
+                <select class="form-select" name="demo_image" id="demo_image" required>
+                  <option value="">-- Pilih Gambar --</option>
+                  <option value="lena.png">🧑‍🦰 Lena (Standard Test Image)</option>
+                  <option value="cameraman.png">📷 Cameraman (Grayscale Classic)</option>
+                  <option value="peppers.png">🌶️ Peppers (Colorful Image)</option>
+                  <option value="tier1.png">🐅 Tiger (Wildlife)</option>
+                  <option value="hurufA.png">🔤 Letter A (Binary)</option>
+                </select>
+              </div>
+              
+              <div class="col-md-6 mb-3">
+                <label for="analysis_type" class="form-label">🔬 Jenis Analisis:</label>
+                <select class="form-select" name="analysis_type" id="analysis_type" required>
+                  <option value="">-- Pilih Analisis --</option>
+                  <option value="all_spaces">🌈 Semua Model Warna (9 Model)</option>
+                  <option value="luminance_comparison">💡 Perbandingan Luminansi</option>
+                  <option value="chrominance_analysis">🎨 Analisis Chrominance</option>
+                  <option value="manual_implementations">⚙️ Implementasi Manual (YIQ & HSI)</option>
+                  <option value="perceptual_analysis">👁️ Analisis Perceptual (Lab vs Luv)</option>
+                </select>
+              </div>
+            </div>
+            
+            <div class="row">
+              <div class="col-12">
+                <button type="submit" class="btn btn-info btn-lg">
+                  🚀 Jalankan Demo Analisis
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Info Cards -->
+  <div class="row">
+    <div class="col-md-6 mb-4">
+      <div class="card h-100">
+        <div class="card-header bg-primary text-white">
+          <h5 class="card-title mb-0">📚 Tentang Model Warna</h5>
+        </div>
+        <div class="card-body">
+          <div class="list-group list-group-flush">
+            <div class="list-group-item">
+              <strong>RGB:</strong> Additive color model (Red, Green, Blue)
+            </div>
+            <div class="list-group-item">
+              <strong>XYZ:</strong> CIE standard color space (tristimulus values)
+            </div>
+            <div class="list-group-item">
+              <strong>LAB:</strong> Perceptually uniform (Lightness, a*, b*)
+            </div>
+            <div class="list-group-item">
+              <strong>YCrCb:</strong> Used in JPEG compression
+            </div>
+            <div class="list-group-item">
+              <strong>YUV:</strong> Analog TV transmission (PAL/SECAM)
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="col-md-6 mb-4">
+      <div class="card h-100">
+        <div class="card-header bg-success text-white">
+          <h5 class="card-title mb-0">🔧 Implementasi Manual</h5>
+        </div>
+        <div class="card-body">
+          <div class="list-group list-group-flush">
+            <div class="list-group-item">
+              <strong>YIQ:</strong> Manual dengan matriks NTSC transformation
+            </div>
+            <div class="list-group-item">
+              <strong>HSI:</strong> Manual dengan perhitungan trigonometri
+            </div>
+            <div class="list-group-item">
+              <strong>HSV:</strong> OpenCV built-in conversion
+            </div>
+            <div class="list-group-item">
+              <strong>CIE Luv:</strong> Alternative perceptual uniform space
+            </div>
+            <div class="list-group-item">
+              <strong>Normalisasi:</strong> Otomatis untuk visualisasi optimal
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Mathematical Foundations -->
+  <div class="row">
+    <div class="col-12 mb-4">
+      <div class="card">
+        <div class="card-header bg-warning text-dark">
+          <h5 class="card-title mb-0">🧮 Dasar Matematis</h5>
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-6">
+              <h6>🔢 Transformasi Matriks (YIQ):</h6>
+              <pre class="bg-light p-2 rounded"><code>[Y]   [0.299  0.587  0.114 ] [R]
+[I] = [0.596 -0.275 -0.321 ] [G]
+[Q]   [0.212 -0.523  0.311 ] [B]</code></pre>
+            </div>
+            <div class="col-md-6">
+              <h6>📐 Formula HSI:</h6>
+              <div class="bg-light p-2 rounded">
+                <small>
+                  <strong>Intensity:</strong> I = (R + G + B) / 3<br>
+                  <strong>Saturation:</strong> S = 1 - 3*min(R,G,B)/(R+G+B)<br>
+                  <strong>Hue:</strong> H = arccos(...) with conditions
+                </small>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Applications -->
+  <div class="row">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-header bg-dark text-white">
+          <h5 class="card-title mb-0">🎯 Aplikasi Praktis</h5>
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-4">
+              <h6>📺 Broadcasting & TV:</h6>
+              <ul class="list-unstyled">
+                <li>• YIQ: NTSC (Amerika)</li>
+                <li>• YUV: PAL/SECAM (Eropa)</li>
+                <li>• YCbCr: Digital TV & Video</li>
+              </ul>
+            </div>
+            <div class="col-md-4">
+              <h6>🎨 Graphics & Design:</h6>
+              <ul class="list-unstyled">
+                <li>• HSI/HSV: Color picking</li>
+                <li>• LAB: Color difference measurement</li>
+                <li>• RGB: Display & web graphics</li>
+              </ul>
+            </div>
+            <div class="col-md-4">
+              <h6>🔬 Scientific & Medical:</h6>
+              <ul class="list-unstyled">
+                <li>• XYZ: Colorimetry standard</li>
+                <li>• CIE Luv: Light mixing</li>
+                <li>• LAB: Perceptual uniformity</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+.list-group-item {
+  border: none;
+  padding: 0.5rem 0;
+}
+pre code {
+  font-size: 0.85rem;
+}
+.card {
+  transition: transform 0.2s ease-in-out;
+}
+.card:hover {
+  transform: translateY(-2px);
+}
+</style>
+{% endblock %}

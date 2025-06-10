@@ -11,6 +11,7 @@ from modules.modul3 import Modul3
 from modules.modul4 import Modul4
 from modules.modul5 import Modul5
 from modules.modul6 import Modul6
+from modules.modul7 import Modul7
 
 app = FastAPI(title="PCD Praktikum 2024 - RINDI INDRIANI - 231511030")
 
@@ -24,7 +25,8 @@ directories = [
     "static/histograms",
     "static/dataset",
     "static/processed_dataset",
-    "static/compression_results"  # 🔥 NEW for compression results
+    "static/compression_results",  # 🔥 NEW for compression results
+    "static/color_results"  # 🎨 NEW for color space results
 ]
 
 for directory in directories:
@@ -38,6 +40,7 @@ modul3 = Modul3(templates)
 modul4 = Modul4(templates)
 modul5 = Modul5(templates)
 modul6 = Modul6(templates)  # 🔥 NEW
+modul7 = Modul7(templates)  # 🎨 NEW
 
 # Main route
 @app.get("/", response_class=HTMLResponse)
@@ -218,6 +221,29 @@ async def modul6_compare_compression(request: Request, file: UploadFile = File(.
 @app.get("/modul6/demo/", response_class=HTMLResponse)
 async def modul6_demo(request: Request):
     return await modul6.demo_compression(request)
+
+# 🎨 MODUL 7 ROUTES - Color Space Conversion
+@app.get("/modul7/", response_class=HTMLResponse)
+async def modul7_home(request: Request):
+    return await modul7.home(request)
+
+@app.post("/modul7/convert_all/", response_class=HTMLResponse)
+async def modul7_convert_all(request: Request, file: UploadFile = File(...)):
+    return await modul7.convert_all_color_spaces(request, file)
+
+@app.post("/modul7/analyze_specific/", response_class=HTMLResponse)
+async def modul7_analyze_specific(request: Request, file: UploadFile = File(...), 
+                                 color_space: str = Form(...)):
+    return await modul7.analyze_specific_color_space(request, file, color_space)
+
+@app.get("/modul7/demo/", response_class=HTMLResponse)
+async def modul7_demo_page(request: Request):
+    return await modul7.demo_page(request)
+
+@app.post("/modul7/demo/", response_class=HTMLResponse)
+async def modul7_demo_analysis(request: Request, demo_image: str = Form(...), 
+                              analysis_type: str = Form(...)):
+    return await modul7.demo_analysis(request, demo_image, analysis_type)
 
 if __name__ == "__main__":
     import uvicorn
