@@ -9,7 +9,8 @@ from modules.modul1 import Modul1
 from modules.modul2 import Modul2
 from modules.modul3 import Modul3
 from modules.modul4 import Modul4
-from modules.modul5 import Modul5  # 🔥 NEW
+from modules.modul5 import Modul5
+from modules.modul6 import Modul6
 
 app = FastAPI(title="PCD Praktikum 2024 - RINDI INDRIANI - 231511030")
 
@@ -22,7 +23,8 @@ directories = [
     "static/uploads",
     "static/histograms",
     "static/dataset",
-    "static/processed_dataset"
+    "static/processed_dataset",
+    "static/compression_results"  # 🔥 NEW for compression results
 ]
 
 for directory in directories:
@@ -34,7 +36,8 @@ modul1 = Modul1(templates)
 modul2 = Modul2(templates)
 modul3 = Modul3(templates)
 modul4 = Modul4(templates)
-modul5 = Modul5(templates)  # 🔥 NEW
+modul5 = Modul5(templates)
+modul6 = Modul6(templates)  # 🔥 NEW
 
 # Main route
 @app.get("/", response_class=HTMLResponse)
@@ -168,7 +171,7 @@ async def modul4_advanced_convolution(request: Request, file: UploadFile = File(
                                     operation: str = Form("blur")):
     return await modul4.advanced_convolution(request, file, operation)
 
-# 🔥 MODUL 5 ROUTES - NEW
+# MODUL 5 ROUTES
 @app.get("/modul5/", response_class=HTMLResponse)
 async def modul5_home(request: Request):
     return await modul5.home(request)
@@ -194,6 +197,27 @@ async def modul5_demo(request: Request):
 @app.post("/modul5/complete_analysis/", response_class=HTMLResponse)
 async def modul5_complete_analysis(request: Request, file: UploadFile = File(...)):
     return await modul5.complete_analysis(request, file)
+
+# 🔥 MODUL 6 ROUTES - NEW
+@app.get("/modul6/", response_class=HTMLResponse)
+async def modul6_home(request: Request):
+    return await modul6.home(request)
+
+@app.post("/modul6/jpeg_compression/", response_class=HTMLResponse)
+async def modul6_jpeg_compression(request: Request, file: UploadFile = File(...)):
+    return await modul6.process_jpeg_compression(request, file)
+
+@app.post("/modul6/png_compression/", response_class=HTMLResponse)
+async def modul6_png_compression(request: Request, file: UploadFile = File(...)):
+    return await modul6.process_png_compression(request, file)
+
+@app.post("/modul6/compare_compression/", response_class=HTMLResponse)
+async def modul6_compare_compression(request: Request, file: UploadFile = File(...)):
+    return await modul6.compare_compression_methods(request, file)
+
+@app.get("/modul6/demo/", response_class=HTMLResponse)
+async def modul6_demo(request: Request):
+    return await modul6.demo_compression(request)
 
 if __name__ == "__main__":
     import uvicorn

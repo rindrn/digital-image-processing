@@ -1,0 +1,207 @@
+{% extends "base.html" %} {% block title %}{{ title }}{% endblock %} {% block
+content %}
+<div class="container-fluid mt-4">
+  <div class="row">
+    <div class="col-12">
+      <div class="text-center mb-4">
+        <h1 class="display-5">📦 Modul 6: Image Compression Analysis</h1>
+        <p class="lead">
+          Analisis Kompresi JPEG dan PNG dengan Evaluasi Kualitas
+        </p>
+        <hr class="my-4" />
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <!-- JPEG Compression Card -->
+    <div class="col-md-6 col-lg-3 mb-4">
+      <div class="card h-100 shadow">
+        <div class="card-header bg-danger text-white">
+          <h5 class="card-title mb-0">🔴 JPEG Compression</h5>
+        </div>
+        <div class="card-body">
+          <p class="card-text">
+            Analisis kompresi JPEG dengan berbagai tingkat kualitas dan evaluasi
+            PSNR/SSIM.
+          </p>
+          <form
+            action="/modul6/jpeg_compression/"
+            method="post"
+            enctype="multipart/form-data"
+          >
+            <div class="mb-3">
+              <label for="jpeg_file" class="form-label">Pilih Gambar:</label>
+              <input
+                type="file"
+                class="form-control"
+                id="jpeg_file"
+                name="file"
+                accept="image/*"
+                required
+              />
+            </div>
+            <button type="submit" class="btn btn-danger w-100">
+              🚀 Analisis JPEG
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- PNG Compression Card -->
+    <div class="col-md-6 col-lg-3 mb-4">
+      <div class="card h-100 shadow">
+        <div class="card-header bg-success text-white">
+          <h5 class="card-title mb-0">🟢 PNG Compression</h5>
+        </div>
+        <div class="card-body">
+          <p class="card-text">
+            Analisis kompresi PNG lossless dengan berbagai level kompresi.
+          </p>
+          <form
+            action="/modul6/png_compression/"
+            method="post"
+            enctype="multipart/form-data"
+          >
+            <div class="mb-3">
+              <label for="png_file" class="form-label">Pilih Gambar:</label>
+              <input
+                type="file"
+                class="form-control"
+                id="png_file"
+                name="file"
+                accept="image/*"
+                required
+              />
+            </div>
+            <button type="submit" class="btn btn-success w-100">
+              🚀 Analisis PNG
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- Comparison Analysis Card -->
+    <div class="col-md-6 col-lg-3 mb-4">
+      <div class="card h-100 shadow">
+        <div class="card-header bg-primary text-white">
+          <h5 class="card-title mb-0">⚖️ Comparison Analysis</h5>
+        </div>
+        <div class="card-body">
+          <p class="card-text">
+            Perbandingan komprehensif antara metode kompresi JPEG dan PNG.
+          </p>
+          <form
+            action="/modul6/compare_compression/"
+            method="post"
+            enctype="multipart/form-data"
+          >
+            <div class="mb-3">
+              <label for="compare_file" class="form-label">Pilih Gambar:</label>
+              <input
+                type="file"
+                class="form-control"
+                id="compare_file"
+                name="file"
+                accept="image/*"
+                required
+              />
+            </div>
+            <button type="submit" class="btn btn-primary w-100">
+              🚀 Bandingkan Metode
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- Demo Analysis Card -->
+    <div class="col-md-6 col-lg-3 mb-4">
+      <div class="card h-100 shadow">
+        <div class="card-header bg-warning text-dark">
+          <h5 class="card-title mb-0">🎮 Demo Analysis</h5>
+        </div>
+        <div class="card-body">
+          <p class="card-text">
+            Demo analisis kompresi menggunakan dataset bawaan (lena.png,
+            cameraman.png).
+          </p>
+          <a href="/modul6/demo/" class="btn btn-warning w-100"
+            >🎮 Jalankan Demo</a
+          >
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Info Section -->
+  <div class="row mt-4">
+    <div class="col-12">
+      <div class="alert alert-info">
+        <h5>📋 Informasi Teknik:</h5>
+        <div class="row">
+          <div class="col-md-4">
+            <h6>JPEG Compression:</h6>
+            <ul>
+              <li>
+                <strong>Lossy:</strong> Mengurangi ukuran dengan kehilangan data
+              </li>
+              <li><strong>Kualitas:</strong> 95, 75, 50, 25, 10</li>
+              <li><strong>Cocok untuk:</strong> Foto dengan banyak warna</li>
+            </ul>
+          </div>
+          <div class="col-md-4">
+            <h6>PNG Compression:</h6>
+            <ul>
+              <li><strong>Lossless:</strong> Tidak ada kehilangan data</li>
+              <li><strong>Level:</strong> 0-9 (0=no compression, 9=max)</li>
+              <li><strong>Cocok untuk:</strong> Gambar dengan sedikit warna</li>
+            </ul>
+          </div>
+          <div class="col-md-4">
+            <h6>Metrics Evaluasi:</h6>
+            <ul>
+              <li><strong>PSNR:</strong> Peak Signal-to-Noise Ratio</li>
+              <li><strong>SSIM:</strong> Structural Similarity Index</li>
+              <li>
+                <strong>Compression Ratio:</strong> Original/Compressed size
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- File Format Tips -->
+  <div class="row mt-4">
+    <div class="col-12">
+      <div class="alert alert-warning">
+        <h5>💡 Tips Pemilihan Format:</h5>
+        <div class="row">
+          <div class="col-md-6">
+            <h6>Gunakan JPEG untuk:</h6>
+            <ul>
+              <li>📷 Foto digital dengan banyak warna</li>
+              <li>🌄 Gambar dengan gradasi halus</li>
+              <li>📱 Web dan media sosial (ukuran kecil)</li>
+              <li>📧 Email attachment</li>
+            </ul>
+          </div>
+          <div class="col-md-6">
+            <h6>Gunakan PNG untuk:</h6>
+            <ul>
+              <li>🎨 Gambar dengan transparansi</li>
+              <li>📊 Screenshot dan diagram</li>
+              <li>🖼️ Logo dan ikon</li>
+              <li>📄 Gambar teks yang harus tajam</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
